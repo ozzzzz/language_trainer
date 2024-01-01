@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercise Simulator</title>
+    <style>
+        .correct {
+            background-color: green;
+        }
+
+        .wrong {
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+
+<p>Fill in the blanks:</p>
+<p>The <textarea id="word1" oninput="checkAnswer(this, 'sky')"></textarea> is blue.</p>
+<p>Apples are <textarea id="word2" oninput="checkAnswer(this, 'red')"></textarea>.</p>
+
+<script>
+    function checkAnswer(element, correctAnswer) {
+        const value = element.value.trim();
+
+        if (!value) {
+            element.className = "";  // Reset to default if blank
+            return;
+        }
+
+        if (value === correctAnswer) {
+            element.className = "correct";
+        } else {
+            element.className = "wrong";
+        }
+    }
+</script>
+
+</body>
+</html>

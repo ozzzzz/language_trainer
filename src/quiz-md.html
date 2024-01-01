@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <style>
+    </style>
+</head>
+
+<body>
+    <h1>Hello, world!</h1>
+    <div class="btn-group" role="group" aria-label="Control group">
+        <button type="button" id="edit-button" class="btn btn-outline-primary">Edit</button>
+        <button type="button" id="render-button" class="btn btn-outline-secondary">Render</button>
+    </div>
+
+    <div class="form-floating" id="edit">
+        <textarea class="form-control" id="edit-textarea" style="height: 400px"></textarea>
+        <!-- <label for="floatingTextarea2">Add quiz blocks in format [?...]</label> -->
+    </div>
+    <div class="input-group" id="render">
+        <span>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
+            Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a
+            galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but
+            also the leap into electronic typesetting, <input type="text" answer="asd"
+                class="form-inline dynamic-input border-0 bg-secondary-subtle">
+            remaining
+            essentially
+            unchanged. It
+            was popularised in the 1960s
+            with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop
+            publishing software like Aldus PageMaker including versions of Lorem Ipsum.</span>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+
+    <script>
+        var inputs = document.getElementsByClassName('dynamic-input');
+        Array.from(inputs).forEach(element => {
+            element.addEventListener('input', function () {
+                this.style.width = Math.floor((Math.max(this.value.length, 22) + 1) * 8) + 'px';
+
+                const trimmed = this.value.trim();
+                if (trimmed === "") {
+                    this.classList.remove("bg-success-subtle")
+                    this.classList.remove("bg-danger-subtle")
+                    this.classList.add("bg-secondary-subtle")
+                    return;
+                } else if (trimmed === this.getAttribute("answer")) {
+                    this.classList.remove("bg-secondary-subtle")
+                    this.classList.remove("bg-danger-subtle")
+                    this.classList.add("bg-success-subtle")
+                } else {
+                    this.classList.remove("bg-success-subtle")
+                    this.classList.remove("bg-secondary-subtle")
+                    this.classList.add("bg-danger-subtle")
+                }
+            });
+        });
+
+        var edit = document.getElementById("edit");
+        var editTextarea = document.getElementById("edit-textarea");
+        editTextarea.value = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. [?asd] Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
+        var render = document.getElementById("render");
+        var editButton = document.getElementById("edit-button");
+        var renderButton = document.getElementById("render-button");
+
+
+
+        renderButton.addEventListener("click", function () {
+            // const lines = editTextarea.value.split("\n");
+            // const result = lines.map(line => {
+            //     var updatedLine = line.replace(/(\[\?.+\])/, "<input type=\"text\" answer=\"$1\" class=\"form-inline dynamic-input border-0 bg-secondary-subtle\">");
+
+
+
+            //     if (blocks.length === 1) {
+            //         return line;
+            //     }
+            //     const result = blocks.map(block => {
+            //         const parts = block.split("]");
+            //         if (parts.length === 1) {
+            //             return block;
+            //         }
+            //         const question = parts[0];
+            //         const answer = parts[1];
+            //         return question + "<input type=\"text\" answer=\"" + answer + "\" class=\"form-inline dynamic-input border-0 bg-secondary-subtle\">"
+            //     });
+            //     return result.join("");
+            // });
+
+            render.innerHTML = editTextarea.value;
+
+            // var text = editTextarea.value;
+            // var blocks = text.split("[?");
+            // var result = "";
+            // for (var i = 0; i < blocks.length; i++) {
+            //     var block = blocks[i];
+            //     var parts = block.split("]");
+            //     if (parts.length > 1) {
+            //         var question = parts[0];
+            //         var answer = parts[1];
+            //         result += question + "<input type=\"text\" answer=\"" + answer + "\" class=\"form-inline dynamic-input border-0 bg-secondary-subtle\">"
+            //     } else {
+            //         result += block;
+            //     }
+            // }
+            // render.innerHTML = result;
+        });
+        // edit.style.display = "none";
+        // render.style.display = "block";
+
+    </script>
+</body>
+
+</html>
