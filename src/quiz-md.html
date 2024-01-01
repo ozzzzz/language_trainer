@@ -13,108 +13,142 @@
 
 <body>
     <h1>Hello, world!</h1>
-    <div class="btn-group" role="group" aria-label="Control group">
+
+    <nav>
+        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+            <button class="nav-link active" id="nav-edit-tab" data-bs-toggle="tab" data-bs-target="#nav-edit"
+                type="button" role="tab" aria-controls="nav-edit" aria-selected="true">Edit</button>
+            <button class="nav-link" id="nav-view-tab" data-bs-toggle="tab" data-bs-target="#nav-view" type="button"
+                role="tab" aria-controls="nav-view" aria-selected="false">View</button>
+            <button class="nav-link" id="nav-info-tab" data-bs-toggle="tab" data-bs-target="#nav-info" type="button"
+                role="tab" aria-controls="nav-info" aria-selected="false">Info</button>
+        </div>
+    </nav>
+    <div class="tab-content" id="nav-tabContent">
+        <div class="tab-pane fade show active" id="nav-edit" role="tabpanel" aria-labelledby="nav-edit-tab"
+            tabindex="0">
+            <textarea class="form-control" id="edit-textarea" style="height: 400px"></textarea>
+        </div>
+        <div class="tab-pane fade" id="nav-view" role="tabpanel" aria-labelledby="nav-view-tab" tabindex="0">
+            <div class="input-group" id="view-zone"></div>
+        </div>
+        <div class="tab-pane fade" id="nav-info" role="tabpanel" aria-labelledby="nav-info-tab" tabindex="0">3.
+        </div>
+    </div>
+
+    <div class="input-group" id="view-zone2"></div>
+
+
+
+
+
+
+
+
+
+    <!-- <div class="btn-group" role="group" aria-label="Control group">
         <button type="button" id="edit-button" class="btn btn-outline-primary">Edit</button>
         <button type="button" id="render-button" class="btn btn-outline-secondary">Render</button>
     </div>
 
     <div class="form-floating" id="edit">
-        <textarea class="form-control" id="edit-textarea" style="height: 400px"></textarea>
-        <!-- <label for="floatingTextarea2">Add quiz blocks in format [?...]</label> -->
     </div>
-    <div class="input-group" id="render">
-        <span>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-            Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a
-            galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but
-            also the leap into electronic typesetting, <input type="text" answer="asd"
-                class="form-inline dynamic-input border-0 bg-secondary-subtle">
-            remaining
-            essentially
-            unchanged. It
-            was popularised in the 1960s
-            with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop
-            publishing software like Aldus PageMaker including versions of Lorem Ipsum.</span>
-    </div>
+    <div class="input-group" id="renderZone"></div> -->
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
         crossorigin="anonymous"></script>
 
     <script>
-        var inputs = document.getElementsByClassName('dynamic-input');
-        Array.from(inputs).forEach(element => {
-            element.addEventListener('input', function () {
-                this.style.width = Math.floor((Math.max(this.value.length, 22) + 1) * 8) + 'px';
+        function getRender() {
+            return document.getElementById("render");
+        }
 
-                const trimmed = this.value.trim();
-                if (trimmed === "") {
-                    this.classList.remove("bg-success-subtle")
-                    this.classList.remove("bg-danger-subtle")
-                    this.classList.add("bg-secondary-subtle")
-                    return;
-                } else if (trimmed === this.getAttribute("answer")) {
-                    this.classList.remove("bg-secondary-subtle")
-                    this.classList.remove("bg-danger-subtle")
-                    this.classList.add("bg-success-subtle")
-                } else {
-                    this.classList.remove("bg-success-subtle")
-                    this.classList.remove("bg-secondary-subtle")
-                    this.classList.add("bg-danger-subtle")
-                }
+        function getEdit() {
+            return document.getElementById("edit");
+        }
+
+        function addInputListeners() {
+            var inputs = document.getElementsByClassName('dynamic-input');
+            Array.from(inputs).forEach(element => {
+                element.addEventListener('input', function () {
+                    this.style.width = Math.floor((Math.max(this.value.length, 22) + 1) * 8) + 'px';
+
+                    const trimmed = this.value.trim();
+                    if (trimmed === "") {
+                        this.classList.remove("bg-success-subtle")
+                        this.classList.remove("bg-danger-subtle")
+                        this.classList.add("bg-secondary-subtle")
+                        return;
+                    } else if (trimmed === this.getAttribute("answer")) {
+                        this.classList.remove("bg-secondary-subtle")
+                        this.classList.remove("bg-danger-subtle")
+                        this.classList.add("bg-success-subtle")
+                    } else {
+                        this.classList.remove("bg-success-subtle")
+                        this.classList.remove("bg-secondary-subtle")
+                        this.classList.add("bg-danger-subtle")
+                    }
+                });
             });
-        });
+        };
 
-        var edit = document.getElementById("edit");
-        var editTextarea = document.getElementById("edit-textarea");
-        editTextarea.value = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. [?asd] Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
-        var render = document.getElementById("render");
-        var editButton = document.getElementById("edit-button");
-        var renderButton = document.getElementById("render-button");
+        function getViewZone() {
+            return document.getElementById("view-zone");
+        }
+        function getViewZone2() {
+            return document.getElementById("view-zone2");
+        }
 
+        function getViewNav() {
+            return document.getElementById("nav-view-tab");
+        }
 
+        function updateRenderBlock() {
+            var editTextarea = document.getElementById("edit-textarea");
 
-        renderButton.addEventListener("click", function () {
-            // const lines = editTextarea.value.split("\n");
-            // const result = lines.map(line => {
-            //     var updatedLine = line.replace(/(\[\?.+\])/, "<input type=\"text\" answer=\"$1\" class=\"form-inline dynamic-input border-0 bg-secondary-subtle\">");
+            const lines = editTextarea.value.split("\n");
+            const result = lines.map(line => {
+                var updatedLine = line.replace(/(\[\?(.+)\])/, "<input type=\"text\" answer=\"$2\" class=\"form-inline dynamic-input border-0 bg-secondary-subtle\">");
+                return "<span>" + updatedLine + "</span>";
+            });
 
+            getViewZone().innerHTML = result.join("\n");
+            getViewZone2().innerHTML = result.join("\n");
+            addInputListeners();
+        }
 
-
-            //     if (blocks.length === 1) {
-            //         return line;
-            //     }
-            //     const result = blocks.map(block => {
-            //         const parts = block.split("]");
-            //         if (parts.length === 1) {
-            //             return block;
-            //         }
-            //         const question = parts[0];
-            //         const answer = parts[1];
-            //         return question + "<input type=\"text\" answer=\"" + answer + "\" class=\"form-inline dynamic-input border-0 bg-secondary-subtle\">"
-            //     });
-            //     return result.join("");
-            // });
-
-            render.innerHTML = editTextarea.value;
-
-            // var text = editTextarea.value;
-            // var blocks = text.split("[?");
-            // var result = "";
-            // for (var i = 0; i < blocks.length; i++) {
-            //     var block = blocks[i];
-            //     var parts = block.split("]");
-            //     if (parts.length > 1) {
-            //         var question = parts[0];
-            //         var answer = parts[1];
-            //         result += question + "<input type=\"text\" answer=\"" + answer + "\" class=\"form-inline dynamic-input border-0 bg-secondary-subtle\">"
-            //     } else {
-            //         result += block;
-            //     }
-            // }
-            // render.innerHTML = result;
+        getViewNav().addEventListener("click", function () {
+            updateRenderBlock();
         });
         // edit.style.display = "none";
         // render.style.display = "block";
+
+
+
+
+
+        // function activeRender() {
+        //     getEdit().style.display = "none";
+        //     getRender().style.display = "block";
+        //     updateRenderBlock();
+        //     active = "render";
+        // }
+
+        // var active = "edit";
+
+
+
+
+
+        // editTextarea.value = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. [?asd] Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
+
+        // var editButton = document.getElementById("edit-button");
+        // var renderButton = document.getElementById("render-button");
+
+
+
+
 
     </script>
 </body>
