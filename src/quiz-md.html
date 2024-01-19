@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bootstrap demo</title>
+    <title>Quiz-md</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <style>
@@ -12,48 +12,34 @@
 </head>
 
 <body>
-    <h1>Hello, world!</h1>
 
-    <nav>
-        <div class="nav nav-tabs" id="nav-tab" role="tablist">
-            <button class="nav-link active" id="nav-edit-tab" data-bs-toggle="tab" data-bs-target="#nav-edit"
-                type="button" role="tab" aria-controls="nav-edit" aria-selected="true">Edit</button>
-            <button class="nav-link" id="nav-view-tab" data-bs-toggle="tab" data-bs-target="#nav-view" type="button"
-                role="tab" aria-controls="nav-view" aria-selected="false">View</button>
-            <button class="nav-link" id="nav-info-tab" data-bs-toggle="tab" data-bs-target="#nav-info" type="button"
-                role="tab" aria-controls="nav-info" aria-selected="false">Info</button>
-        </div>
-    </nav>
-    <div class="tab-content" id="nav-tabContent">
-        <div class="tab-pane fade show active" id="nav-edit" role="tabpanel" aria-labelledby="nav-edit-tab"
-            tabindex="0">
-            <textarea class="form-control" id="edit-textarea" style="height: 400px"></textarea>
-        </div>
-        <div class="tab-pane fade" id="nav-view" role="tabpanel" aria-labelledby="nav-view-tab" tabindex="0">
-            <div class="input-group" id="view-zone"></div>
-        </div>
-        <div class="tab-pane fade" id="nav-info" role="tabpanel" aria-labelledby="nav-info-tab" tabindex="0">3.
+    <div class="container">
+        <h1>quiz-md</h1>
+        <nav>
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                <button class="nav-link active" id="nav-edit-tab" data-bs-toggle="tab" data-bs-target="#nav-edit"
+                    type="button" role="tab" aria-controls="nav-edit" aria-selected="true">Edit</button>
+                <button class="nav-link" id="nav-view-tab" data-bs-toggle="tab" data-bs-target="#nav-view" type="button"
+                    role="tab" aria-controls="nav-view" aria-selected="false">View</button>
+                <button class="nav-link" id="nav-info-tab" data-bs-toggle="tab" data-bs-target="#nav-info" type="button"
+                    role="tab" aria-controls="nav-info" aria-selected="false">Info</button>
+            </div>
+        </nav>
+        <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade show active" id="nav-edit" role="tabpanel" aria-labelledby="nav-edit-tab"
+                tabindex="0">
+                <p>Add quiz blocks in format [?...]</p>
+                <textarea class="form-control" id="edit-textarea" placeholder=""
+                    style="height: 400px">The French Revolution began in [?1789] and lasted until [?1794].</textarea>
+
+            </div>
+            <div class="tab-pane fade" id="nav-view" role="tabpanel" aria-labelledby="nav-view-tab" tabindex="0">
+                <div class="input-group d-block" id="view-zone"></div>
+            </div>
+            <div class="tab-pane fade" id="nav-info" role="tabpanel" aria-labelledby="nav-info-tab" tabindex="0">3.
+            </div>
         </div>
     </div>
-
-    <div class="input-group" id="view-zone2"></div>
-
-
-
-
-
-
-
-
-
-    <!-- <div class="btn-group" role="group" aria-label="Control group">
-        <button type="button" id="edit-button" class="btn btn-outline-primary">Edit</button>
-        <button type="button" id="render-button" class="btn btn-outline-secondary">Render</button>
-    </div>
-
-    <div class="form-floating" id="edit">
-    </div>
-    <div class="input-group" id="renderZone"></div> -->
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
@@ -96,9 +82,6 @@
         function getViewZone() {
             return document.getElementById("view-zone");
         }
-        function getViewZone2() {
-            return document.getElementById("view-zone2");
-        }
 
         function getViewNav() {
             return document.getElementById("nav-view-tab");
@@ -109,46 +92,17 @@
 
             const lines = editTextarea.value.split("\n");
             const result = lines.map(line => {
-                var updatedLine = line.replace(/(\[\?(.+)\])/, "<input type=\"text\" answer=\"$2\" class=\"form-inline dynamic-input border-0 bg-secondary-subtle\">");
-                return "<span>" + updatedLine + "</span>";
+                var updatedLine = line.replace(/(\[\?(.+?)\])/g, "<input type=\"text\" answer=\"$2\" class=\"form-inline dynamic-input border-0 bg-secondary-subtle\">");
+                return "<p>" + updatedLine + "</p>";
             });
 
             getViewZone().innerHTML = result.join("\n");
-            getViewZone2().innerHTML = result.join("\n");
             addInputListeners();
         }
 
         getViewNav().addEventListener("click", function () {
             updateRenderBlock();
         });
-        // edit.style.display = "none";
-        // render.style.display = "block";
-
-
-
-
-
-        // function activeRender() {
-        //     getEdit().style.display = "none";
-        //     getRender().style.display = "block";
-        //     updateRenderBlock();
-        //     active = "render";
-        // }
-
-        // var active = "edit";
-
-
-
-
-
-        // editTextarea.value = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. [?asd] Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
-
-        // var editButton = document.getElementById("edit-button");
-        // var renderButton = document.getElementById("render-button");
-
-
-
-
 
     </script>
 </body>
